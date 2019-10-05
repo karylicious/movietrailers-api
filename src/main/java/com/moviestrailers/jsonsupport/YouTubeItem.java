@@ -1,4 +1,4 @@
-package com.movietrailers.models;
+package com.moviestrailers.jsonsupport;
 
 import java.util.Map;
 

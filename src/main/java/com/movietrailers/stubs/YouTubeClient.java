@@ -1,9 +1,12 @@
 package com.movietrailers.stubs;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 
-import com.movietrailers.models.YouTubeVideo;
+import com.movietrailers.models.YouTubeItem;
+import com.movietrailers.models.YouTubeResult;
 
 /*
  * According to YouTube Data API reference
@@ -27,20 +30,26 @@ public class YouTubeClient {
 	private RestTemplate restTemplate;
 	
 	// Make the HTTP POST request, marshaling the request to JSON, and the response to a 
-	public String getMovieTrailerIDFromYouTubeAPI(String movieTitle) {
-		String requestURL = buildURL(movieTitle);
+	public String getMovieTrailerIDFromYouTubeAPI(String movieTitle) {		
 		
-		//Object[] obj = restTemplate.getForObject(requestURL, Object[].class);
-		//System.out.println(restTemplate.getForObject(requestURL, YouTubeVideo.class));
-		//System.out.println(requestURL);
-		//return "";
-		YouTubeVideo video = restTemplate.getForObject(requestURL, YouTubeVideo.class);	
-		System.out.println(video.getMylist().get(0).getId().get("videoId"));
-		return "";//video.getMylist().get(0).getId();
+		String requestURL = getFormattedURL(movieTitle);				
+		YouTubeResult youTubeResult = restTemplate.getForObject(requestURL, YouTubeResult.class);			
+		
+		return getVideoIdFromYouTubeResult(youTubeResult);
 	}
 	
-	private String buildURL(String queryTerm) {
+	private String getFormattedURL(String queryTerm) {
+		
 		String formattedQueryTerm = queryTerm.replace(' ','+');
 		return YOUTUBE_API_URL + "?" + "q=" + formattedQueryTerm + "&part=snippet&type=video&videoEmbeddable=true&maxResults=1&key=" + YOUTUBE_DATA_API_KEY;
 	}	
+	
+	private String getVideoIdFromYouTubeResult(YouTubeResult youTubeResult) {
+		
+		YouTubeItem firstItem = youTubeResult.getYouTubeItemsList().get(0);
+		Map<String, String> youtubeItemId = firstItem.getItemId();
+		
+		// The key "videoId" comes from a property name of the JSON response
+		return youtubeItemId.get("videoId");
+	}
 }

@@ -1,4 +1,4 @@
-package com.movietrailers.services;
+package com.movietrailers.stubs;
 
 import org.springframework.web.client.RestTemplate;
 

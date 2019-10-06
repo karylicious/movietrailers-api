@@ -1,4 +1,4 @@
-package com.moviestrailers.jsonsupport;
+package com.movietrailers.jsonsupport;
 
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,12 +13,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * and the field names of the Java object do not match. 
  */
 
-public final class TmdbGenreList{		
+public final class TmdbPageMovieList{		
 	
-	@JsonProperty("genres")
-	private List<Genre> listOfGenres;
+	@JsonProperty("page")
+	private int currentPage;
 	
-	public List<Genre> getListOfGenres() {
-		return listOfGenres;
-	}
+	@JsonProperty("total_results")
+	private int totalResults;
+	
+	@JsonProperty("total_pages")
+	private int totalPages;
+	
+	@JsonProperty("results")
+	private List<MovieShortVersion> listOfMovies;	
 }

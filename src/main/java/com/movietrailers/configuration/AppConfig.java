@@ -4,8 +4,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
+
 import com.movietrailers.stubs.YouTubeClient;
-import com.movietrailers.validators.GenreValidator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.movietrailers.handlers.RequestHandler;
 import com.movietrailers.stubs.TmdbClient;
 
@@ -13,7 +14,7 @@ import com.movietrailers.stubs.TmdbClient;
 // and to declare Beans definition methods
 
 @Configuration
-@ComponentScan ({"com.movietrailers.controllers"})
+@ComponentScan ({"com.movietrailers.controllers","com.movietrailers.exceptions"})
 public class AppConfig {
 	
 	@Bean
@@ -36,8 +37,6 @@ public class AppConfig {
 		return new RequestHandler();
 	}
 	
-	@Bean
-	public GenreValidator getGenreValidator() {
-		return new GenreValidator();
-	}
+	
+	
 }

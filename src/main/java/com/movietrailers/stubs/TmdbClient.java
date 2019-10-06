@@ -1,17 +1,15 @@
 package com.movietrailers.stubs;
 
 import org.springframework.web.client.RestTemplate;
+
+import com.movietrailers.jsonsupport.Genre;
+import com.movietrailers.jsonsupport.MovieFullVersion;
+import com.movietrailers.jsonsupport.TmdbGenreList;
+import com.movietrailers.jsonsupport.TmdbPageMovieList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.moviestrailers.jsonsupport.Genre;
-import com.moviestrailers.jsonsupport.TmdbGenreList;
-import com.moviestrailers.jsonsupport.MovieFullVersion;
-import com.moviestrailers.jsonsupport.MovieShortVersion;
-import com.moviestrailers.jsonsupport.TmdbPageMovieList;
-
 import java.util.List;
-
-
 
 /* This class is used as a client stub which will consume TMDB API 
  * 
@@ -33,8 +31,7 @@ import java.util.List;
 public final class TmdbClient {
 
 	private final static String TMDB_API_URL = "https://api.themoviedb.org/3";
-	private final static String TMDB_API_KEY = "60e6f0cf0d843f550667a5ed1ac36671";
-	
+	private final static String TMDB_API_KEY = "60e6f0cf0d843f550667a5ed1ac36671";	
 	
 	@Autowired
 	private RestTemplate restTemplate;

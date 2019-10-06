@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.movietrailers.exceptions.NotFound;
 import com.movietrailers.handlers.RequestHandler;
 
 // CORS access control headers (without this the client won't be able to access the response from this web service)
@@ -25,9 +26,13 @@ public final class MovieController {
 	RequestHandler requestHandler;
 	
 	@RequestMapping( path = "/api/v1/movies", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String getMoviesByTitle  ( @RequestParam String title) { 
+	public String getMoviesByTitle  ( @RequestParam String title) throws Exception{ 
+		throw new NotFound("olaaa");
+		//return requestHandler.getMoviesByTitleFromTmdbAPIandMarshallIt(title);
 		
-		return requestHandler.getMoviesByTitleFromTmdbAPIandMarshallIt(title);
+		
+		
+		
 		//System.out.println(title);
 		
 		//tmdbClient.getMoviesByTitle(title);

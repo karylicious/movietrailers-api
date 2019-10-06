@@ -1,5 +1,6 @@
-package com.moviestrailers.jsonsupport;
+package com.movietrailers.jsonsupport;
 
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /*
@@ -12,16 +13,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * and the field names of the Java object do not match. 
  */
 
-public final class MovieShortVersion {	
-	@JsonProperty("id")
-	private int id;
-
-	@JsonProperty("title")
-	private String title;
+public final class TmdbSingleMovie{		
 	
-	@JsonProperty("poster_path")
-	private String posterPath;
-
-	@JsonProperty("release_date")
-	private String releaseDate;
+	@JsonProperty("results")
+	private List<MovieShortVersion> tmdbSingleMovie;
+	
+	public List<MovieShortVersion> getTmdbSingleMovie() {
+		return tmdbSingleMovie;
+	}
 }

@@ -3,10 +3,9 @@ package com.movietrailers.handlers;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.moviestrailers.jsonsupport.Genre;
-import com.moviestrailers.jsonsupport.MovieFullVersion;
-import com.moviestrailers.jsonsupport.MovieShortVersion;
-import com.moviestrailers.jsonsupport.TmdbPageMovieList;
+import com.movietrailers.jsonsupport.Genre;
+import com.movietrailers.jsonsupport.MovieFullVersion;
+import com.movietrailers.jsonsupport.TmdbPageMovieList;
 
 // This class is used to  handle the process of transforming data into JSON format
 

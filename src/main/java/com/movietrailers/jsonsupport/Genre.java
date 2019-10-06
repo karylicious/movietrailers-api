@@ -1,8 +1,9 @@
-package com.moviestrailers.jsonsupport;
+package com.movietrailers.jsonsupport;
 
 // This class is used to support JSON deserialization  
 
 public final class Genre {	
+	
 	private int id;
 	private String name;
 	

@@ -5,8 +5,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 
-import com.moviestrailers.jsonsupport.YouTubeItem;
-import com.moviestrailers.jsonsupport.YouTubeResultList;
+import com.movietrailers.jsonsupport.YouTubeItem;
+import com.movietrailers.jsonsupport.YouTubeResultList;
 
 /* This class is used as a client stub which will consume YouTube Data API 
  * 
@@ -51,7 +51,7 @@ public final class YouTubeClient {
 		YouTubeItem firstItem = youTubeResult.getYouTubeItemsList().get(0);
 		Map<String, String> youtubeItemId = firstItem.getItemId();
 		
-		// The key "videoId" comes from a property name of the JSON response
+		// The key "videoId" comes from a property name in JSON response from YouTube API
 		return youtubeItemId.get("videoId");
 	}
 }

@@ -1,7 +1,6 @@
-package com.moviestrailers.jsonsupport;
+package com.movietrailers.jsonsupport;
 
 import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /*

@@ -1,14 +1,13 @@
 package com.movietrailers.handlers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.moviestrailers.jsonsupport.Genre;
-import com.moviestrailers.jsonsupport.MovieFullVersion;
-import com.moviestrailers.jsonsupport.MovieShortVersion;
-import com.moviestrailers.jsonsupport.TmdbPageMovieList;
+import com.movietrailers.exceptions.NotFound;
+import com.movietrailers.jsonsupport.Genre;
+import com.movietrailers.jsonsupport.MovieFullVersion;
+import com.movietrailers.jsonsupport.TmdbPageMovieList;
 import com.movietrailers.stubs.TmdbClient;
 import com.movietrailers.stubs.YouTubeClient;
 
@@ -22,14 +21,19 @@ public final class RequestHandler {
 	@Autowired
 	private YouTubeClient youTubeClient;
 	
+	//public String getGenres() {
+		
+	//}
+	
 	public String getGenresFromTmdbAPIandMarshallIt() {
 		List<Genre> listOfGenres = tmdbClient.getGenres();
 		return MarshallingHandler.convertListOfGenresToJSON(listOfGenres);
 	}
 	
-	public String getMoviesByTitleFromTmdbAPIandMarshallIt(String movieTitle) {
-		TmdbPageMovieList listOfMovies = tmdbClient.getMoviesByTitle(movieTitle);		
-		return MarshallingHandler.convertListOfMoviesToJSON(listOfMovies);
+	public String getMoviesByTitleFromTmdbAPIandMarshallIt(String movieTitle) throws Exception{
+		throw new NotFound("olaaa");
+		//TmdbPageMovieList listOfMovies = tmdbClient.getMoviesByTitle(movieTitle);		
+		//return MarshallingHandler.convertListOfMoviesToJSON(listOfMovies);
 	}
 	
 	public String getMoviesByOptionalFiltersFromTmdbAPIandMarshallIt(String concatenatedOptionalFilters) {
@@ -44,4 +48,6 @@ public final class RequestHandler {
 		movie.setTrailerId(trailerId); // trailerId of movie object is originally null
 		return MarshallingHandler.convertMovieToJSON(movie);
 	}
+	
+	
 }

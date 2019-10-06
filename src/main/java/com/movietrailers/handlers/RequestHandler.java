@@ -1,5 +1,6 @@
 package com.movietrailers.handlers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.moviestrailers.jsonsupport.Genre;
 import com.moviestrailers.jsonsupport.MovieFullVersion;
 import com.moviestrailers.jsonsupport.MovieShortVersion;
+import com.moviestrailers.jsonsupport.TmdbPageMovieList;
 import com.movietrailers.stubs.TmdbClient;
 import com.movietrailers.stubs.YouTubeClient;
 
@@ -26,12 +28,12 @@ public final class RequestHandler {
 	}
 	
 	public String getMoviesByTitleFromTmdbAPIandMarshallIt(String movieTitle) {
-		List<MovieShortVersion> listOfMovies = tmdbClient.getMoviesByTitle(movieTitle);
+		TmdbPageMovieList listOfMovies = tmdbClient.getMoviesByTitle(movieTitle);		
 		return MarshallingHandler.convertListOfMoviesToJSON(listOfMovies);
 	}
 	
 	public String getMoviesByOptionalFiltersFromTmdbAPIandMarshallIt(String concatenatedOptionalFilters) {
-		List<MovieShortVersion> listOfMovies = tmdbClient.getMoviesByOptionalFilters(concatenatedOptionalFilters);
+		TmdbPageMovieList listOfMovies = tmdbClient.getMoviesByOptionalFilters(concatenatedOptionalFilters);
 		return MarshallingHandler.convertListOfMoviesToJSON(listOfMovies);
 	}
 	

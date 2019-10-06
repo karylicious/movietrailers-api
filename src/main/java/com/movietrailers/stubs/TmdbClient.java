@@ -4,10 +4,10 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.moviestrailers.jsonsupport.Genre;
-import com.moviestrailers.jsonsupport.GenreList;
+import com.moviestrailers.jsonsupport.TmdbGenreList;
 import com.moviestrailers.jsonsupport.MovieFullVersion;
 import com.moviestrailers.jsonsupport.MovieShortVersion;
-import com.moviestrailers.jsonsupport.TmdbMovieList;
+import com.moviestrailers.jsonsupport.TmdbPageMovieList;
 
 import java.util.List;
 
@@ -39,21 +39,25 @@ public final class TmdbClient {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	public List<MovieShortVersion> getMoviesByTitle(String movieTitle) {
+	public TmdbPageMovieList getMoviesByTitle(String movieTitle) {
 		String requestURL = getFormattedURLForSimpleSearch(movieTitle);
-		return getMovieListFromTmdbAPI(requestURL);	
+		
+		// The RestTemplate retrieves the resource by sending a HTTP GET request and unmarshals it into the class Movie		
+		return  restTemplate.getForObject(requestURL, TmdbPageMovieList.class);
 	}
 	
-	public List<MovieShortVersion> getMoviesByOptionalFilters(String concatenatedOptionalFilters) {		
+	public TmdbPageMovieList getMoviesByOptionalFilters(String concatenatedOptionalFilters) {		
 		String requestURL = getFormattedURLForAdvancedSearch(concatenatedOptionalFilters);	
-		return getMovieListFromTmdbAPI(requestURL);			
+		
+		// The RestTemplate retrieves the resource by sending a HTTP GET request and unmarshals it into the class Movie		
+		return  restTemplate.getForObject(requestURL, TmdbPageMovieList.class);		
 	}
 	
 	public List<Genre> getGenres() {		
 		String requestURL = getFormattedURLForGenres();	
 		
 		// The RestTemplate retrieves the resource by sending a HTTP GET request and unmarshals it into the class YouTubeResult		
-		GenreList listOfGenres = restTemplate.getForObject(requestURL, GenreList.class);		
+		TmdbGenreList listOfGenres = restTemplate.getForObject(requestURL, TmdbGenreList.class);		
 		
 		return listOfGenres.getListOfGenres();
 	}
@@ -63,12 +67,6 @@ public final class TmdbClient {
 	
 		// The RestTemplate retrieves the resource by sending a HTTP GET request and unmarshals it into the class Movie		
 		return restTemplate.getForObject(requestURL, MovieFullVersion.class);	
-	}
-
-	private List<MovieShortVersion> getMovieListFromTmdbAPI(String requestURL){
-		// The RestTemplate retrieves the resource by sending a HTTP GET request and unmarshals it into the class Movie		
-		TmdbMovieList list = restTemplate.getForObject(requestURL, TmdbMovieList.class);		
-		return list.getTmdbResultList();
 	}
 	
 	private String getFormattedURLForSimpleSearch(String queryTerm) {		

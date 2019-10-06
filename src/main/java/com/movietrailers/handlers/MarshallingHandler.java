@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.moviestrailers.jsonsupport.Genre;
 import com.moviestrailers.jsonsupport.MovieFullVersion;
 import com.moviestrailers.jsonsupport.MovieShortVersion;
+import com.moviestrailers.jsonsupport.TmdbPageMovieList;
 
 // This class is used to  handle the process of transforming data into JSON format
 
@@ -25,7 +26,7 @@ public final class MarshallingHandler {
 		return "";*/
 	}
 	
-	public static String convertListOfMoviesToJSON(List<MovieShortVersion> listOfMovies) {
+	public static String convertListOfMoviesToJSON(TmdbPageMovieList listOfMovies) {
 		return convertObjectToJson(listOfMovies);
 	}
 	
@@ -43,20 +44,4 @@ public final class MarshallingHandler {
 		}
 		return null;
 	}
-	
-	
-	private String convertStringToJsonsss(String theString){
-		try {
-			ObjectMapper mapper = new ObjectMapper();
-			Object jsonObject = mapper.readValue(theString, Object.class);
-			return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject);
-		}
-		catch(Exception exception) {
-			exception.printStackTrace();
-		}
-		return "";
-	}
-	
-	
-	
 }

@@ -12,8 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * and the field names of the Java object do not match. 
  */
 
-public final class MovieShortVersion {
-	
+public final class MovieShortVersion {	
 	@JsonProperty("id")
 	private int id;
 
@@ -25,20 +24,4 @@ public final class MovieShortVersion {
 
 	@JsonProperty("release_date")
 	private String releaseDate;
-
-	public int getId() {
-		return id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public String getPosterPath() {
-		return posterPath;
-	}
-
-	public String getReleaseDate() {
-		return releaseDate;
-	}
 }

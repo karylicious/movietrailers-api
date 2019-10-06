@@ -4,9 +4,11 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.moviestrailers.jsonsupport.Genre;
-import com.moviestrailers.jsonsupport.GenreList;
+import com.moviestrailers.jsonsupport.MovieFullVersion;
+import com.moviestrailers.jsonsupport.MovieShortVersion;
 
 // This class is used to  handle the process of transforming data into JSON format
+
 public final class MarshallingHandler {
 
 	public static String convertListOfGenresToJSON(List<Genre> listOfGenres) {
@@ -23,6 +25,13 @@ public final class MarshallingHandler {
 		return "";*/
 	}
 	
+	public static String convertListOfMoviesToJSON(List<MovieShortVersion> listOfMovies) {
+		return convertObjectToJson(listOfMovies);
+	}
+	
+	public static String convertMovieToJSON(MovieFullVersion movie) {
+		return convertObjectToJson(movie);
+	}
 	
 	private static String convertObjectToJson(Object objectToBeConverted){
 		try {

@@ -13,12 +13,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * and the field names of the Java object do not match. 
  */
 
-public final class TmdbResult{		
+public final class TmdbMovieList{		
 	
 	@JsonProperty("results")
-	private List<Movie> tmdbResultList;
+	private List<MovieShortVersion> tmdbResultList;
 	
-	public List<Movie> getTmdbResultList() {
+	public List<MovieShortVersion> getTmdbResultList() {
 		return tmdbResultList;
 	}
 }

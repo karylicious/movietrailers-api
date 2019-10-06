@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 
 import com.moviestrailers.jsonsupport.YouTubeItem;
-import com.moviestrailers.jsonsupport.YouTubeResult;
+import com.moviestrailers.jsonsupport.YouTubeResultList;
 
 /* This class is used as a client stub which will consume YouTube Data API 
  * 
@@ -32,7 +32,7 @@ public final class YouTubeClient {
 		String requestURL = getFormattedURL(movieTitle);	
 		
 		// The RestTemplate retrieves the resource by sending a HTTP GET request and unmarshals it into the class YouTubeResult		
-		YouTubeResult youTubeResult = restTemplate.getForObject(requestURL, YouTubeResult.class);			
+		YouTubeResultList youTubeResult = restTemplate.getForObject(requestURL, YouTubeResultList.class);			
 		
 		return getVideoIdFromYouTubeResult(youTubeResult);
 	}
@@ -46,7 +46,7 @@ public final class YouTubeClient {
 		return YOUTUBE_API_URL + "?q=" + formattedQueryTerm + "&part=snippet&type=video&videoEmbeddable=true&maxResults=" + maxResults + "&key=" + YOUTUBE_DATA_API_KEY;
 	}	
 	
-	private String getVideoIdFromYouTubeResult(YouTubeResult youTubeResult) {
+	private String getVideoIdFromYouTubeResult(YouTubeResultList youTubeResult) {
 		
 		YouTubeItem firstItem = youTubeResult.getYouTubeItemsList().get(0);
 		Map<String, String> youtubeItemId = firstItem.getItemId();

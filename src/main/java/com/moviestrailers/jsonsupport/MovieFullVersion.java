@@ -1,8 +1,6 @@
 package com.moviestrailers.jsonsupport;
 
 import java.util.List;
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /*
@@ -15,12 +13,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * and the field names of the Java object do not match. 
  */
 
-public final class Movie {
+public final class MovieFullVersion {
 	
 	@JsonProperty("id")
 	private int id;
 
-	@JsonProperty("title")
 	private String title;
 	
 	@JsonProperty("overview")
@@ -30,32 +27,22 @@ public final class Movie {
 	private String releaseDate;
 	
 	@JsonProperty("vote_average")
-	private double rating;	
+	private double rate;	
 	
-	@JsonProperty("genre_ids")
-	private List<Integer> genreIds;
-
-	public int getId() {
-		return id;
-	}
-
+	@JsonProperty("genres")
+	private List<Genre> genres;
+	
+	@JsonProperty("poster_path")
+	private String posterPath;
+	
+	@JsonProperty("trailer_id")
+	private String trailerId;
+	
 	public String getTitle() {
 		return title;
 	}
-
-	public String getOverview() {
-		return overview;
-	}
-
-	public String getReleaseDate() {
-		return releaseDate;
-	}
-
-	public double getRating() {
-		return rating;
-	}
-
-	public List<Integer> getGenreIds() {
-		return genreIds;
-	}
+	
+	public void setTrailerId(String trailerId) {
+		this.trailerId = trailerId;
+	}	
 }

@@ -19,6 +19,6 @@ public final class GenreController {
 		
 	@RequestMapping(path = "/api/v1/genres", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String getGenres() {
-		return genreValidator.getGenresWithoutValidating();	
+		return genreValidator.getGenresWithoutValidation();	
 	}	
 }

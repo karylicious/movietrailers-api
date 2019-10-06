@@ -8,7 +8,7 @@ public final class GenreValidator {
 	@Autowired
 	private RequestHandler requestHandler;
 	
-	public String getGenresWithoutValidating() {
-		return requestHandler.getGenresFromTMDBAPIandMarshallIt();		
+	public String getGenresWithoutValidation() {
+		return requestHandler.getGenresFromTmdbAPIandMarshallIt();		
 	}	
 }

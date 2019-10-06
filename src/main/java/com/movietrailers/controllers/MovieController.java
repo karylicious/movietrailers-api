@@ -2,6 +2,7 @@ package com.movietrailers.controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -30,7 +31,10 @@ public class MovieController {
 	
 	@RequestMapping( path = "/api/v1/movies", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String getMoviesByTitle  ( @RequestParam String title) { 
-		String id = youTubeClient.getMovieTrailerIDFromYouTubeAPI(title);
+		System.out.println(title);
+		
+		tmdbClient.getMoviesByTitle(title);
+		//String id = youTubeClient.getMovieTrailerIDFromYouTubeAPI(title);
 		
 		return "";
 		//try {			
@@ -44,18 +48,21 @@ public class MovieController {
 		//return convertStringToJson("{\"succeed\": " + false + ", \"Info\": \"File not uploaded\"}");
 	}
 	
-	@RequestMapping(path = "/api/v1/movies", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String getMoviesByOptionalFilters(@RequestParam(value = "primary_release_year", required=false) int releaseYear,
-									@RequestParam(value = "with_genres", required=false) String genres,
-									@RequestParam(value = "vote_average.gte", required=false) int rateGreaterOrEqual,
-									@RequestParam(value = "vote_average.lte", required=false) int rateLessOrEqual) {
+	@RequestMapping(path = "/api/v1/movies/search", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String getMoviesByOptionalFilters(@RequestParam(value = "primary_release_year", required=false) String releaseYear,
+									@RequestParam(value = "with_genres", required=false) String genres[],
+									@RequestParam(value = "vote_average.gte", required=false) String rateGreaterOrEqual,
+									@RequestParam(value = "vote_average.lte", required=false) String rateLessOrEqual) {
 		
+		System.out.println(releaseYear);
+		tmdbClient.getMoviesByOptionalFilters("primary_release_year="+releaseYear);
 		
 	    return "";
 	}
 	
-	@RequestMapping(path = "/api/v1/movies/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String getMovieById(@PathVariable String id) {
+	@RequestMapping(value = "/api/v1/movies/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String getMovieById(@PathVariable int  id) {		
+		String theid = tmdbClient.getMovieById(id);
 		
 		
 	    return "";

@@ -42,7 +42,7 @@ public class YouTubeClient {
 		formattedQueryTerm += "+trailer"; 		
 		int maxResults = 1;
 		
-		return YOUTUBE_API_URL + "?" + "q=" + formattedQueryTerm + "&part=snippet&type=video&videoEmbeddable=true&maxResults=" + maxResults + "&key=" + YOUTUBE_DATA_API_KEY;
+		return YOUTUBE_API_URL + "?q=" + formattedQueryTerm + "&part=snippet&type=video&videoEmbeddable=true&maxResults=" + maxResults + "&key=" + YOUTUBE_DATA_API_KEY;
 	}	
 	
 	private String getVideoIdFromYouTubeResult(YouTubeResult youTubeResult) {

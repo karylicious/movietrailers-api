@@ -2,8 +2,11 @@ package com.movietrailers.stubs;
 
 import org.springframework.web.client.RestTemplate;
 
-import com.moviestrailers.jsonsupport.YouTubeResult;
-import com.movietrailers.models.Movie;
+import com.moviestrailers.jsonsupport.GenreList;
+import com.moviestrailers.jsonsupport.Movie;
+//import com.movietrailers.models.Movie;
+import com.moviestrailers.jsonsupport.TmdbResult;
+import com.moviestrailers.jsonsupport.YouTubeItem;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -32,38 +35,70 @@ public class TmdbClient {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	public void getMoviesByTitle() {
-		//RestTemplate restTemplate = new RestTemplate();
-		Movie movie = restTemplate.getForObject("https://gturnquist-quoters.cfapps.io/api/random", Movie.class);
-        //log.info(quote.toString());
+	public void getMoviesByTitle(String movieTitle) {
+		String requestURL = getFormattedURLForSimpleSearch(movieTitle);
+
+		// The RestTemplate retrieves the resource by sending a HTTP GET request and unmarshals it into the class Movie		
+		TmdbResult list = restTemplate.getForObject(requestURL, TmdbResult.class);		
+		
+		System.out.println(list.getTmdbResultList().size());
+		
 	}
 	
-	public String getMovieTrailerIDFromYouTubeAPI(String movieTitle) {		
+	public String getMoviesByOptionalFilters(String optionalFilters) {		
 		
-		String requestURL = getFormattedURL(movieTitle);	
+		String requestURL = getFormattedURLForAdvancedSearch(optionalFilters);	
 		
 		// The RestTemplate retrieves the resource by sending a HTTP GET request and unmarshals it into the class YouTubeResult		
-		YouTubeResult youTubeResult = restTemplate.getForObject(requestURL, YouTubeResult.class);			
+		TmdbResult list = restTemplate.getForObject(requestURL, TmdbResult.class);		
 		
-		return getVideoIdFromYouTubeResult(youTubeResult);
+		System.out.println(list.getTmdbResultList().size());
+		
+		return ""; //getVideoIdFromYouTubeResult(youTubeResult);
 	}
 	
+	public String getGenres() {
+		
+		String requestURL = getFormattedURLForGenres();	
+		
+		// The RestTemplate retrieves the resource by sending a HTTP GET request and unmarshals it into the class YouTubeResult		
+		GenreList list = restTemplate.getForObject(requestURL, GenreList.class);		
+		
+		System.out.println(list.getListOfGenre().get(0).getName());
+				
+	    return "";
+	}
+	
+	public String getMovieById(int id) {
+		String requestURL = getFormattedURLForMovieDetails(id);	
+		
+		// The RestTemplate retrieves the resource by sending a HTTP GET request and unmarshals it into the class Movie		
+		Movie movie = restTemplate.getForObject(requestURL, Movie.class);			
+		
+		return "";
+	}
+
 	private String getFormattedURLForSimpleSearch(String queryTerm) {
 		
 		String formattedQueryTerm = queryTerm.replace(' ','+'); 	
-		return TMDB_API_URL + "/search/movie?" + "query=" + formattedQueryTerm + "&api_key=" + TMDB_API_KEY;
+		return TMDB_API_URL + "/search/movie?query=" + formattedQueryTerm + "&api_key=" + TMDB_API_KEY;
 	}	
 	
 	private String getFormattedURLForAdvancedSearch(String queryTerm) {
 		
 		String formattedQueryTerm = queryTerm.replace(' ','+');
 
-		return TMDB_API_URL + "/discover/movie?" + "query=" + formattedQueryTerm + "&api_key=" + TMDB_API_KEY;
+		return TMDB_API_URL + "/discover/movie?query=" + formattedQueryTerm + "&api_key=" + TMDB_API_KEY;
 	}	
 	
-	private String getFormattedURLForGenres(String queryTerm) {
+	private String getFormattedURLForGenres() {
 			
-		return TMDB_API_URL + "/genre/movie/list?" + "api_key=" + TMDB_API_KEY;
-	}	
+		return TMDB_API_URL + "/genre/movie/list?api_key=" + TMDB_API_KEY;
+	}
+	
+	private String getFormattedURLForMovieDetails(int id) {
+		
+		return TMDB_API_URL + "/movie/" +id+ "?api_key=" + TMDB_API_KEY;
+	}
 	
 }

@@ -2,11 +2,14 @@ package com.movietrailers.stubs;
 
 import org.springframework.web.client.RestTemplate;
 
+import com.moviestrailers.jsonsupport.Genre;
 import com.moviestrailers.jsonsupport.GenreList;
 import com.moviestrailers.jsonsupport.Movie;
 //import com.movietrailers.models.Movie;
 import com.moviestrailers.jsonsupport.TmdbResult;
 import com.moviestrailers.jsonsupport.YouTubeItem;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,7 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * 
  */
 
-public class TmdbClient {
+public final class TmdbClient {
 
 	private final static String TMDB_API_URL = "https://api.themoviedb.org/3";
 	private final static String TMDB_API_KEY = "60e6f0cf0d843f550667a5ed1ac36671";
@@ -58,16 +61,16 @@ public class TmdbClient {
 		return ""; //getVideoIdFromYouTubeResult(youTubeResult);
 	}
 	
-	public String getGenres() {
+	public List<Genre> getGenres() {
 		
 		String requestURL = getFormattedURLForGenres();	
 		
 		// The RestTemplate retrieves the resource by sending a HTTP GET request and unmarshals it into the class YouTubeResult		
-		GenreList list = restTemplate.getForObject(requestURL, GenreList.class);		
-		
-		System.out.println(list.getListOfGenre().get(0).getName());
+		GenreList listOfGenres = restTemplate.getForObject(requestURL, GenreList.class);		
+		return listOfGenres.getListOfGenres();
+		//System.out.println(list.getListOfGenre().get(0).getName());
 				
-	    return "";
+	    //return "";
 	}
 	
 	public String getMovieById(int id) {

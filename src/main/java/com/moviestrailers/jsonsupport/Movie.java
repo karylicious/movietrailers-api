@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * and the field names of the Java object do not match. 
  */
 
-public class Movie {
+public final class Movie {
 	
 	@JsonProperty("id")
 	private int id;

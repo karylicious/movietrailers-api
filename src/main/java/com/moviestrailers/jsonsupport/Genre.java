@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 // This class is used to support JSON deserialization  
 
-public class Genre {	
+public final class Genre {	
 	private int id;
 	private String name;
 	

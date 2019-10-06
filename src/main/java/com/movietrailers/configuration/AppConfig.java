@@ -5,6 +5,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 import com.movietrailers.stubs.YouTubeClient;
+import com.movietrailers.validators.GenreValidator;
+import com.movietrailers.handlers.RequestHandler;
 import com.movietrailers.stubs.TmdbClient;
 
 // This class is used tell Spring where to find classes annotated as controller
@@ -27,5 +29,15 @@ public class AppConfig {
 	@Bean
 	public TmdbClient getTmdbClient() {
 		return new TmdbClient();
+	}
+	
+	@Bean
+	public RequestHandler getRequestHandler() {
+		return new RequestHandler();
+	}
+	
+	@Bean
+	public GenreValidator getGenreValidator() {
+		return new GenreValidator();
 	}
 }

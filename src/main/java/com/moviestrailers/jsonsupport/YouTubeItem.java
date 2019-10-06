@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * and the field names of the Java object do not match. 
  */
 
-public class YouTubeItem {
+public final class YouTubeItem {
 	
 	@JsonProperty("id")
 	private Map<String, String> itemId;

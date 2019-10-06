@@ -22,7 +22,7 @@ import com.movietrailers.stubs.YouTubeClient;
 // CORS access control headers (without this the client won't be able to access the response from this web service)
 @CrossOrigin(origins = "*") 
 @RestController
-public class MovieController {
+public final class MovieController {
 	
 	@Autowired
 	private YouTubeClient youTubeClient;

@@ -19,7 +19,7 @@ import com.moviestrailers.jsonsupport.YouTubeResult;
  * 
  */
 
-public class YouTubeClient {
+public final class YouTubeClient {
 
 	private final static String YOUTUBE_API_URL = "https://www.googleapis.com/youtube/v3/search";
 	private final static String YOUTUBE_DATA_API_KEY = "AIzaSyBZPWK96Ni0KdePWNN84ADmVLXM1P9iRtg";

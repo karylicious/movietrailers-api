@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * and the field names of the Java object do not match. 
  */
 
-public class YouTubeResult{		
+public final class YouTubeResult{		
 	
 	@JsonProperty("items")
 	private List<YouTubeItem> youTubeItemsList;

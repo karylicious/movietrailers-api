@@ -13,12 +13,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * and the field names of the Java object do not match. 
  */
 
-public class GenreList{		
+public final class GenreList{		
 	
 	@JsonProperty("genres")
-	private List<Genre> listOfGenre;
+	private List<Genre> listOfGenres;
 	
-	public List<Genre> getListOfGenre() {
-		return listOfGenre;
+	public List<Genre> getListOfGenres() {
+		return listOfGenres;
 	}
 }

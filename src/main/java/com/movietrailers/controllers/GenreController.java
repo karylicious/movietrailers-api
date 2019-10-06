@@ -17,7 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.movietrailers.stubs.TmdbClient;
 
-@CrossOrigin(origins = "*") // CORS access control headers (without this the client won't be able to access the response from this web service)
+// CORS access control headers (without this the client won't be able to access the response from this web service)
+@CrossOrigin(origins = "*") 
 @RestController
 public class GenreController {
 	
@@ -29,8 +30,7 @@ public class GenreController {
 		tmdbClient.getGenres();
 		
 	    return "";
-	}
-	
+	}	
 	
 	private String convertStringToJson(String theString){
 		try {

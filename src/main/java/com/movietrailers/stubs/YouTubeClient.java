@@ -8,7 +8,8 @@ import org.springframework.web.client.RestTemplate;
 import com.moviestrailers.jsonsupport.YouTubeItem;
 import com.moviestrailers.jsonsupport.YouTubeResult;
 
-/*
+/* This class is used as a client stub which will consume YouTube Data API 
+ * 
  * According to the YouTube Data API reference  every request must either 
  * specify an API key  (with the key parameter) or provide an OAuth 2.0 token. 
  * 

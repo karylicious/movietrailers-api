@@ -19,7 +19,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.movietrailers.stubs.TmdbClient;
 import com.movietrailers.stubs.YouTubeClient;
 
-@CrossOrigin(origins = "*") // CORS access control headers (without this the client won't be able to access the response from this web service)
+// CORS access control headers (without this the client won't be able to access the response from this web service)
+@CrossOrigin(origins = "*") 
 @RestController
 public class MovieController {
 	

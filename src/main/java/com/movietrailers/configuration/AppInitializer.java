@@ -2,24 +2,22 @@ package com.movietrailers.configuration;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+// This class is used to configure the dispatcher servlet which is the front controller
+
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		// TODO Auto-generated method stub
 		return new Class[] {AppConfig.class};
 	}
 
 	@Override
 	protected String[] getServletMappings() {
-		// TODO Auto-generated method stub
-		return new String[] {"/"};
+		return new String[] {"/"}; // This allows to receive all type of requests
 	}
-
 }

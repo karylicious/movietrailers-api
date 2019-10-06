@@ -10,7 +10,8 @@ import com.moviestrailers.jsonsupport.YouTubeItem;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-/*
+/* This class is used as a client stub which will consume TMDB API 
+ * 
  * To access the Rotten tomatoes data I have to ask for permission 
  * by submitting a proposal form describing how I would use the data, therefore 
  * I decided to go for IMDB API.

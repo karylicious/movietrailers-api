@@ -4,6 +4,8 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /*
+ * This class is used to support JSON deserialization
+ * 
  * The @JsonProperty annotation is used to map property names with JSON keys
  * during serialization and deserialization. 
  * 

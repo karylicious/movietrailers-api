@@ -4,6 +4,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.movietrailers.jsonsupport.Genre;
 import com.movietrailers.jsonsupport.MovieFullVersion;
+import com.movietrailers.jsonsupport.OptionalSearchFilter;
 import com.movietrailers.jsonsupport.TmdbGenreList;
 import com.movietrailers.jsonsupport.TmdbPageMovieList;
 
@@ -36,6 +37,9 @@ public final class TmdbClient {
 	@Autowired
 	private RestTemplate restTemplate;
 	
+	@Autowired
+	OptionalSearchFilter optionalSearchFilter;
+	
 	public TmdbPageMovieList getMoviesByTitle(String movieTitle) {
 		String requestURL = getFormattedURLForSimpleSearch(movieTitle);
 		
@@ -43,7 +47,12 @@ public final class TmdbClient {
 		return  restTemplate.getForObject(requestURL, TmdbPageMovieList.class);
 	}
 	
-	public TmdbPageMovieList getMoviesByOptionalFilters(String concatenatedOptionalFilters) {		
+	public TmdbPageMovieList getMoviesByOptionalFilters(OptionalSearchFilter optionalSearchFilters) {		
+		String concatenatedOptionalFilters = getConcatenatedNonEmptyFilter(optionalSearchFilters);
+		
+		if(concatenatedOptionalFilters.equals(""))
+			return new TmdbPageMovieList();
+		
 		String requestURL = getFormattedURLForAdvancedSearch(concatenatedOptionalFilters);	
 		
 		// The RestTemplate retrieves the resource by sending a HTTP GET request and unmarshals it into the class Movie		
@@ -64,6 +73,34 @@ public final class TmdbClient {
 	
 		// The RestTemplate retrieves the resource by sending a HTTP GET request and unmarshals it into the class Movie		
 		return restTemplate.getForObject(requestURL, MovieFullVersion.class);	
+	}
+	
+	private String getConcatenatedNonEmptyFilter(OptionalSearchFilter optionalSearchFilters) {
+		String concatenatedFilters = "";
+		int[] listOfGenreIds = optionalSearchFilters.getGenreIds();
+		
+		if (listOfGenreIds != null) {
+			concatenatedFilters += "with_genres=";
+			String commaSeparator ="";
+			for(int i = 0; i< listOfGenreIds.length; i++) {
+				if (i > 0) 
+					commaSeparator=",";				
+				concatenatedFilters += commaSeparator + listOfGenreIds[i];
+			}
+		}
+				
+		//primary_release_year   
+		
+		//double rateGreaterOrEqual = optionalSearchFilters.getRateGreaterOrEqual();
+		
+		//if(rateGreaterOrEqual == null) 
+			//concatenatedFilters +="&vote_average.gte=" + rateGreaterOrEqual;
+		
+		
+		//double rateLessOrEqual = optionalSearchFilters.getRateLessOrEqual();
+		
+		//int releaseYear = optionalSearchFilters.getReleaseYear();
+		return concatenatedFilters;
 	}
 	
 	private String getFormattedURLForSimpleSearch(String queryTerm) {		

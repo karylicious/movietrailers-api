@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.movietrailers.exceptions.NotFound;
-import com.movietrailers.handlers.RequestHandler;
+import com.movietrailers.jsonsupport.MovieFullVersion;
+import com.movietrailers.jsonsupport.OptionalSearchFilter;
+import com.movietrailers.jsonsupport.TmdbPageMovieList;
+import com.movietrailers.stubs.TmdbClient;
+import com.movietrailers.stubs.YouTubeClient;
 
 // CORS access control headers (without this the client won't be able to access the response from this web service)
 @CrossOrigin(origins = "*") 
@@ -23,58 +25,38 @@ import com.movietrailers.handlers.RequestHandler;
 public final class MovieController {
 		
 	@Autowired
-	RequestHandler requestHandler;
+	private TmdbClient tmdbClient;
+	
+	@Autowired
+	private YouTubeClient youTubeClient;
+	
+	@Autowired
+	OptionalSearchFilter optionalSearchFilters;
 	
 	@RequestMapping( path = "/api/v1/movies", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String getMoviesByTitle  ( @RequestParam String title) throws Exception{ 
-		throw new NotFound("olaaa");
-		//return requestHandler.getMoviesByTitleFromTmdbAPIandMarshallIt(title);
-		
-		
-		
-		
-		//System.out.println(title);
-		
-		//tmdbClient.getMoviesByTitle(title);
-		//String id = youTubeClient.getMovieTrailerIDFromYouTubeAPI(title);
-		
-		//return "";
-		//try {			
-
-			
-			//return convertStringToJson("{\"succeed\": " + true + ", \"Info\": \"File uploaded successfully\", \"d\": " + userTemporaryDirectoryName + "}");
-		//}
-		//catch(Exception exception) {
-		//	exception.printStackTrace();			
-		//}
-		//return convertStringToJson("{\"succeed\": " + false + ", \"Info\": \"File not uploaded\"}");
+	public TmdbPageMovieList getMoviesByTitle  ( @RequestParam String title){ 
+		return tmdbClient.getMoviesByTitle(title);	
 	}
 	
 	@RequestMapping(path = "/api/v1/movies/search", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String getMoviesByOptionalFilters(@RequestParam(value = "primary_release_year", required=false) String releaseYear,
-									@RequestParam(value = "with_genres", required=false) String genres[],
+	public TmdbPageMovieList getMoviesByOptionalFilters(@RequestParam(value = "primary_release_year", required=false) String releaseYear,
+									@RequestParam(value = "with_genres", required=false) int genreIds[],
 									@RequestParam(value = "vote_average.gte", required=false) String rateGreaterOrEqual,
 									@RequestParam(value = "vote_average.lte", required=false) String rateLessOrEqual) {
 		
-		return requestHandler.getMoviesByOptionalFiltersFromTmdbAPIandMarshallIt("primary_release_year="+releaseYear);		
+		optionalSearchFilters.setGenreIds(genreIds);
+		optionalSearchFilters.setRateGreaterOrEqual(rateGreaterOrEqual);
+		optionalSearchFilters.setRateLessOrEqual(rateLessOrEqual);
+		optionalSearchFilters.setReleaseYear(releaseYear);
+		
+		return tmdbClient.getMoviesByOptionalFilters(optionalSearchFilters);		
 	}
 	
 	@RequestMapping(value = "/api/v1/movies/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String getMovieById(@PathVariable int  id) {		
-		return requestHandler.getMovieByIdFromTmbdAPIAndTrailerIdFromYoutubeAPIAndMarshallIt(id);
-	}
-	
-	
-	private String convertStringToJson(String theString){
-		try {
-			ObjectMapper mapper = new ObjectMapper();
-			Object jsonObject = mapper.readValue(theString, Object.class);
-			return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject);
-		}
-		catch(Exception exception) {
-			exception.printStackTrace();
-		}
-		return "";
-	}
-
-}
+	public MovieFullVersion getMovieById(@PathVariable int  id){		
+		MovieFullVersion movie = tmdbClient.getMovieById(id);
+		String trailerId = youTubeClient.getMovieTrailerIDFromYouTubeAPI(movie.getTitle());
+		
+		movie.setTrailerId(trailerId); // trailerId of movie object is originally null
+		return movie;
+	}}

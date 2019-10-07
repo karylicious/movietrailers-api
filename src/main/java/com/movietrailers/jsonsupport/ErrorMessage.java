@@ -1,8 +1,14 @@
 package com.movietrailers.jsonsupport;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ErrorMessage {
+	@JsonProperty("error_message")
 	private String errorMessage;
+	
+	@JsonProperty("error_code")
 	private int errorCode;
+	
 	public String getErrorMessage() {
 		return errorMessage;
 	}

@@ -6,27 +6,18 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
+
+import com.movietrailers.models.ErrorMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.movietrailers.jsonsupport.ErrorMessage;
 
 @ControllerAdvice
 public class DefaultExceptionHandler {
 	
 	@Autowired
-	ErrorMessage errorMessage;
+	ErrorMessage errorMessage;		
 		
-	@ExceptionHandler({MismatchedException.class})
-	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-	@ResponseBody
-	public ErrorMessage handeResourceNotFoundHandler(MismatchedException exception){
-		errorMessage.setErrorCode(422);
-		errorMessage.setErrorMessage(exception.getMessage());
-		return errorMessage;
-	}
-	
 	@ExceptionHandler({NoHandlerFoundException.class})
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ResponseBody

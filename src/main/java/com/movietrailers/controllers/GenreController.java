@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.movietrailers.jsonsupport.Genre;
+import com.movietrailers.models.Genre;
 import com.movietrailers.stubs.TmdbClient;
 
 // CORS access control headers (without this the client won't be able to access the response from this web service)
 @CrossOrigin(origins = "*") 
 @RestController
 public final class GenreController {
+	
 	@Autowired
 	private TmdbClient tmdbClient;
 	

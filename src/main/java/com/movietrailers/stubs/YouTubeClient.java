@@ -5,8 +5,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 
-import com.movietrailers.jsonsupport.YouTubeItem;
-import com.movietrailers.jsonsupport.YouTubeResultList;
+import com.movietrailers.models.YouTubeItem;
+import com.movietrailers.models.YouTubeResultList;
 
 /* This class is used as a client stub which will consume YouTube Data API 
  * 

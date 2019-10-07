@@ -2,11 +2,11 @@ package com.movietrailers.stubs;
 
 import org.springframework.web.client.RestTemplate;
 
-import com.movietrailers.jsonsupport.Genre;
-import com.movietrailers.jsonsupport.MovieFullVersion;
-import com.movietrailers.jsonsupport.OptionalSearchFilter;
-import com.movietrailers.jsonsupport.TmdbGenreList;
-import com.movietrailers.jsonsupport.TmdbPageMovieList;
+import com.movietrailers.models.Genre;
+import com.movietrailers.models.MovieFullVersion;
+import com.movietrailers.models.OptionalSearchFilter;
+import com.movietrailers.models.TmdbGenreList;
+import com.movietrailers.models.TmdbPageMovieList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -35,15 +35,10 @@ public final class TmdbClient {
 	private final static String TMDB_API_KEY = "60e6f0cf0d843f550667a5ed1ac36671";	
 	
 	@Autowired
-	private RestTemplate restTemplate;
-	
-	@Autowired
-	OptionalSearchFilter optionalSearchFilter;
+	private RestTemplate restTemplate;	
 	
 	public TmdbPageMovieList getMoviesByTitle(String movieTitle) {
-		String requestURL = getFormattedURLForSimpleSearch(movieTitle);
-		
-		// The RestTemplate retrieves the resource by sending a HTTP GET request and unmarshals it into the class Movie		
+		String requestURL = getFormattedURLForSimpleSearch(movieTitle);				
 		return  restTemplate.getForObject(requestURL, TmdbPageMovieList.class);
 	}
 	
@@ -54,52 +49,49 @@ public final class TmdbClient {
 			return new TmdbPageMovieList();
 		
 		String requestURL = getFormattedURLForAdvancedSearch(concatenatedOptionalFilters);	
-		
-		// The RestTemplate retrieves the resource by sending a HTTP GET request and unmarshals it into the class Movie		
 		return  restTemplate.getForObject(requestURL, TmdbPageMovieList.class);		
 	}
 	
 	public List<Genre> getGenres() {		
-		String requestURL = getFormattedURLForGenres();	
-		
-		// The RestTemplate retrieves the resource by sending a HTTP GET request and unmarshals it into the class YouTubeResult		
-		TmdbGenreList listOfGenres = restTemplate.getForObject(requestURL, TmdbGenreList.class);		
-		
+		String requestURL = getFormattedURLForGenres();				
+		TmdbGenreList listOfGenres = restTemplate.getForObject(requestURL, TmdbGenreList.class);	
 		return listOfGenres.getListOfGenres();
 	}
 	
 	public MovieFullVersion getMovieById(int movieId) {
-		String requestURL = getFormattedURLForMovieDetails(movieId);	
-	
-		// The RestTemplate retrieves the resource by sending a HTTP GET request and unmarshals it into the class Movie		
+		String requestURL = getFormattedURLForMovieDetails(movieId);			
 		return restTemplate.getForObject(requestURL, MovieFullVersion.class);	
 	}
 	
 	private String getConcatenatedNonEmptyFilter(OptionalSearchFilter optionalSearchFilters) {
 		String concatenatedFilters = "";
-		int[] listOfGenreIds = optionalSearchFilters.getGenreIds();
+		String genreIds = optionalSearchFilters.getGenreIds();
 		
-		if (listOfGenreIds != null) {
-			concatenatedFilters += "with_genres=";
-			String commaSeparator ="";
-			for(int i = 0; i< listOfGenreIds.length; i++) {
-				if (i > 0) 
-					commaSeparator=",";				
-				concatenatedFilters += commaSeparator + listOfGenreIds[i];
-			}
+		if (genreIds != null) {
+			concatenatedFilters += (concatenatedFilters.equals("") ? "with_genres=": "&with_genres=");
+			concatenatedFilters += genreIds;
 		}
-				
-		//primary_release_year   
+				  
+		String releseYear = optionalSearchFilters.getReleaseYear();
+		if(releseYear != null) {
+			concatenatedFilters += (concatenatedFilters.equals("") ? "primary_release_year=": "&primary_release_year=");
+			concatenatedFilters += releseYear;
+		}		
+	
+		String rateGreaterOrEqual = optionalSearchFilters.getRateGreaterOrEqual();
 		
-		//double rateGreaterOrEqual = optionalSearchFilters.getRateGreaterOrEqual();
+		if(rateGreaterOrEqual != null){
+			concatenatedFilters += (concatenatedFilters.equals("") ? "vote_average.gte=": "&vote_average.gte=");
+			concatenatedFilters += rateGreaterOrEqual;
+		}
+					
+		String rateLessOrEqual = optionalSearchFilters.getRateLessOrEqual();
 		
-		//if(rateGreaterOrEqual == null) 
-			//concatenatedFilters +="&vote_average.gte=" + rateGreaterOrEqual;
+		if(rateGreaterOrEqual != null){
+			concatenatedFilters += (concatenatedFilters.equals("") ? "vote_average.lte=": "&vote_average.lte=");
+			concatenatedFilters += rateLessOrEqual;
+		}			
 		
-		
-		//double rateLessOrEqual = optionalSearchFilters.getRateLessOrEqual();
-		
-		//int releaseYear = optionalSearchFilters.getReleaseYear();
 		return concatenatedFilters;
 	}
 	

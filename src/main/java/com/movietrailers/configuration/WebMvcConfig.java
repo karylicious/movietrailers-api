@@ -9,8 +9,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.http.MediaType;
 
-import com.movietrailers.jsonsupport.ErrorMessage;
-import com.movietrailers.jsonsupport.OptionalSearchFilter;
+import com.movietrailers.models.ErrorMessage;
+import com.movietrailers.models.OptionalSearchFilter;
 import com.movietrailers.stubs.TmdbClient;
 import com.movietrailers.stubs.YouTubeClient;
 

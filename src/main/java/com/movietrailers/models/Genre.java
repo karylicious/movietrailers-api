@@ -1,6 +1,4 @@
-package com.movietrailers.jsonsupport;
-
-// This class is used to support JSON deserialization  
+package com.movietrailers.models;
 
 public final class Genre {	
 	

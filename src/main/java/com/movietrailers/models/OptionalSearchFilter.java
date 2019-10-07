@@ -1,19 +1,10 @@
-package com.movietrailers.jsonsupport;
+package com.movietrailers.models;
 
 public final class OptionalSearchFilter {
 	private String releaseYear;
-	private int genreIds[];
+	private String genreIds;
 	private String rateGreaterOrEqual;
-	private String rateLessOrEqual;
-	
-	/*public OptionalSearchFilter(String releaseYear, String[] genres, String rateGreaterOrEqual,
-			String rateLessOrEqual) {
-		super();
-		this.releaseYear = releaseYear;
-		this.genres = genres;
-		this.rateGreaterOrEqual = rateGreaterOrEqual;
-		this.rateLessOrEqual = rateLessOrEqual;
-	}*/
+	private String rateLessOrEqual;	
 	
 	public String getReleaseYear() {
 		return releaseYear;
@@ -21,10 +12,10 @@ public final class OptionalSearchFilter {
 	public void setReleaseYear(String releaseYear) {
 		this.releaseYear = releaseYear;
 	}
-	public int[] getGenreIds() {
+	public String getGenreIds() {
 		return genreIds;
 	}
-	public void setGenreIds(int[] genreIds) {
+	public void setGenreIds(String genreIds) {
 		this.genreIds = genreIds;
 	}
 	public String getRateGreaterOrEqual() {

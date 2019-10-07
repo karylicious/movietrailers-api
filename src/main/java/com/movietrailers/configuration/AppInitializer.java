@@ -1,12 +1,8 @@
 package com.movietrailers.configuration;
 
-import javax.servlet.ServletRegistration;
-
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-
-// This class is used to configure the dispatcher servlet which is the front controller
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 

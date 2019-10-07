@@ -1,4 +1,4 @@
-package com.movietrailers.jsonsupport;
+package com.movietrailers.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

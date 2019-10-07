@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.movietrailers.jsonsupport.MovieFullVersion;
-import com.movietrailers.jsonsupport.OptionalSearchFilter;
-import com.movietrailers.jsonsupport.TmdbPageMovieList;
+import com.movietrailers.models.MovieFullVersion;
+import com.movietrailers.models.OptionalSearchFilter;
+import com.movietrailers.models.TmdbPageMovieList;
 import com.movietrailers.stubs.TmdbClient;
 import com.movietrailers.stubs.YouTubeClient;
 
@@ -40,7 +40,7 @@ public final class MovieController {
 	
 	@RequestMapping(path = "/api/v1/movies/search", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public TmdbPageMovieList getMoviesByOptionalFilters(@RequestParam(value = "primary_release_year", required=false) String releaseYear,
-									@RequestParam(value = "with_genres", required=false) int genreIds[],
+									@RequestParam(value = "with_genres", required=false) String genreIds,
 									@RequestParam(value = "vote_average.gte", required=false) String rateGreaterOrEqual,
 									@RequestParam(value = "vote_average.lte", required=false) String rateLessOrEqual) {
 		

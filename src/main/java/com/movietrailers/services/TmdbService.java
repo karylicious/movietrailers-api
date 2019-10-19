@@ -1,4 +1,4 @@
-package com.movietrailers.stubs;
+package com.movietrailers.services;
 
 import org.springframework.web.client.RestTemplate;
 
@@ -29,7 +29,7 @@ import java.util.List;
  * 
  */
 
-public final class TmdbClient {
+public class TmdbService {
 
 	private final static String TMDB_API_URL = "https://api.themoviedb.org/3";
 	private final static String TMDB_API_KEY = "60e6f0cf0d843f550667a5ed1ac36671";	
@@ -64,51 +64,68 @@ public final class TmdbClient {
 	}
 	
 	private String getConcatenatedNonEmptyFilter(OptionalSearchFilter optionalSearchFilters) {
-		String concatenatedFilters = "";
-		String genreIds = optionalSearchFilters.getGenreIds();
+		StringBuilder concatenatedFilters = new StringBuilder("");
 		
-		if (genreIds != null) {
-			concatenatedFilters += (concatenatedFilters.equals("") ? "with_genres=": "&with_genres=");
-			concatenatedFilters += genreIds;
-		}
-				  
-		String releseYear = optionalSearchFilters.getReleaseYear();
-		if(releseYear != null) {
-			concatenatedFilters += (concatenatedFilters.equals("") ? "primary_release_year=": "&primary_release_year=");
-			concatenatedFilters += releseYear;
-		}		
+		String genreIds = optionalSearchFilters.getGenreIds();		
+		if (genreIds != null) 
+			concatenatedFilters = appendSearchFiltersToStringBuilder(concatenatedFilters, "with_genres=", genreIds);
+						  
+		String releaseYear = optionalSearchFilters.getReleaseYear();
+		if(releaseYear != null)
+			concatenatedFilters = appendSearchFiltersToStringBuilder(concatenatedFilters, "primary_release_year=", releaseYear);
+		
+		String rateGreaterOrEqual = optionalSearchFilters.getRateGreaterOrEqual();		
+		if(rateGreaterOrEqual != null)
+			concatenatedFilters = appendSearchFiltersToStringBuilder(concatenatedFilters, "vote_average.gte=", rateGreaterOrEqual);
+							
+		String rateLessOrEqual = optionalSearchFilters.getRateLessOrEqual();		
+		if(rateGreaterOrEqual != null)
+			concatenatedFilters = appendSearchFiltersToStringBuilder(concatenatedFilters, "vote_average.lte=", rateLessOrEqual);
+		
+		return concatenatedFilters.toString();
+	}
 	
-		String rateGreaterOrEqual = optionalSearchFilters.getRateGreaterOrEqual();
+	private StringBuilder appendSearchFiltersToStringBuilder(StringBuilder concatenatedFilters, String filterNameProceededByEqualSign, String filterValue) {
+		String ampersand = (concatenatedFilters.length() == 0) ? "" : "&";	
 		
-		if(rateGreaterOrEqual != null){
-			concatenatedFilters += (concatenatedFilters.equals("") ? "vote_average.gte=": "&vote_average.gte=");
-			concatenatedFilters += rateGreaterOrEqual;
-		}
-					
-		String rateLessOrEqual = optionalSearchFilters.getRateLessOrEqual();
-		
-		if(rateGreaterOrEqual != null){
-			concatenatedFilters += (concatenatedFilters.equals("") ? "vote_average.lte=": "&vote_average.lte=");
-			concatenatedFilters += rateLessOrEqual;
-		}			
-		
-		return concatenatedFilters;
+		return concatenatedFilters.append(ampersand)	
+								  .append(filterNameProceededByEqualSign)
+								  .append(filterValue);		
 	}
 	
 	private String getFormattedURLForSimpleSearch(String queryTerm) {		
-		String formattedQueryTerm = queryTerm.replace(' ','+'); 	
-		return TMDB_API_URL + "/search/movie?query=" + formattedQueryTerm + "&api_key=" + TMDB_API_KEY;
+		String formattedQueryTerm = queryTerm.replace(' ','+'); 
+		
+		return new StringBuilder(TMDB_API_URL)
+				.append("/search/movie?query=")
+				.append(formattedQueryTerm)
+				.append("&api_key=")
+				.append(TMDB_API_KEY)
+				.toString();
 	}	
 	
 	private String getFormattedURLForAdvancedSearch(String queryTerm) {	
-		return TMDB_API_URL + "/discover/movie?" + queryTerm + "&api_key=" + TMDB_API_KEY;
+		return new StringBuilder(TMDB_API_URL)
+				.append("/discover/movie?")
+				.append(queryTerm)
+				.append("&api_key=")
+				.append(TMDB_API_KEY)
+				.toString();
 	}	
 	
 	private String getFormattedURLForGenres() {			
-		return TMDB_API_URL + "/genre/movie/list?api_key=" + TMDB_API_KEY;
+		return new StringBuilder(TMDB_API_URL)
+				.append("/genre/movie/list?api_key=")
+				.append(TMDB_API_KEY)
+				.toString();
 	}
 	
 	private String getFormattedURLForMovieDetails(int id) {		
-		return TMDB_API_URL + "/movie/" +id+ "?api_key=" + TMDB_API_KEY;
+		return new StringBuilder(TMDB_API_URL)
+				.append("/movie/")
+				.append(id)
+				.append("?api_key=")
+				.append(TMDB_API_KEY)
+				.toString();
 	}	
 }

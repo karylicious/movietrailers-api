@@ -2,12 +2,11 @@ package com.movietrailers.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public final class MovieShortVersion {	
+public class Movie {	
 	
 	@JsonProperty("id")
 	private int id;
 
-	@JsonProperty("title")
 	private String title;
 	
 	@JsonProperty("poster_path")
@@ -15,4 +14,8 @@ public final class MovieShortVersion {
 
 	@JsonProperty("release_date")
 	private String releaseDate;
+	
+	public String getTitle() {
+		return title;
+	}
 }

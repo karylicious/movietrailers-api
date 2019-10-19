@@ -1,6 +1,7 @@
 package com.movietrailers.models;
 
-public final class OptionalSearchFilter {
+public class OptionalSearchFilter {
+	
 	private String releaseYear;
 	private String genreIds;
 	private String rateGreaterOrEqual;

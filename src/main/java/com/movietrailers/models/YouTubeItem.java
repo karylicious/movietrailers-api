@@ -3,7 +3,7 @@ package com.movietrailers.models;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public final class YouTubeItem {
+public class YouTubeItem {
 	
 	@JsonProperty("id")
 	private Map<String, String> itemId;

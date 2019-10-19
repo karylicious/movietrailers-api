@@ -3,7 +3,7 @@ package com.movietrailers.models;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public final class TmdbPageMovieList{		
+public class TmdbPageMovieList{		
 	
 	@JsonProperty("page")
 	private int currentPage;
@@ -15,5 +15,5 @@ public final class TmdbPageMovieList{
 	private int totalPages;
 	
 	@JsonProperty("results")
-	private List<MovieShortVersion> listOfMovies;	
+	private List<Movie> listOfMovies;	
 }

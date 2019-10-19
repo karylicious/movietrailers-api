@@ -3,7 +3,7 @@ package com.movietrailers.models;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public final class YouTubeResultList{		
+public class YouTubeResultList{		
 	
 	@JsonProperty("items")
 	private List<YouTubeItem> youTubeItemsList;

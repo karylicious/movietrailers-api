@@ -1,4 +1,4 @@
-package com.movietrailers.stubs;
+package com.movietrailers.services;
 
 import java.util.Map;
 
@@ -19,7 +19,7 @@ import com.movietrailers.models.YouTubeResultList;
  * 
  */
 
-public final class YouTubeClient {
+public class YouTubeService {
 
 	private final static String YOUTUBE_API_URL = "https://www.googleapis.com/youtube/v3/search";
 	private final static String YOUTUBE_DATA_API_KEY = "AIzaSyBZPWK96Ni0KdePWNN84ADmVLXM1P9iRtg";
@@ -43,7 +43,14 @@ public final class YouTubeClient {
 		formattedQueryTerm += "+trailer"; 		
 		int maxResults = 1;
 		
-		return YOUTUBE_API_URL + "?q=" + formattedQueryTerm + "&part=snippet&type=video&videoEmbeddable=true&maxResults=" + maxResults + "&key=" + YOUTUBE_DATA_API_KEY;
+		return new StringBuilder(YOUTUBE_API_URL)
+				.append("?q=")
+				.append(formattedQueryTerm)
+				.append("&part=snippet&type=video&videoEmbeddable=true&maxResults=")
+				.append(maxResults)
+				.append("&key=")
+				.append(YOUTUBE_DATA_API_KEY)
+				.toString();
 	}	
 	
 	private String getVideoIdFromYouTubeResult(YouTubeResultList youTubeResult) {

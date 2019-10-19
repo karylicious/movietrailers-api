@@ -1,9 +1,5 @@
 package com.movietrailers.controllers;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.movietrailers.models.MovieFullVersion;
 import com.movietrailers.models.OptionalSearchFilter;
 import com.movietrailers.models.TmdbPageMovieList;
-import com.movietrailers.stubs.TmdbClient;
-import com.movietrailers.stubs.YouTubeClient;
+import com.movietrailers.services.TmdbService;
+import com.movietrailers.services.YouTubeService;
 
 // CORS access control headers (without this the client won't be able to access the response from this web service)
 @CrossOrigin(origins = "*") 
@@ -25,10 +21,10 @@ import com.movietrailers.stubs.YouTubeClient;
 public final class MovieController {
 		
 	@Autowired
-	private TmdbClient tmdbClient;
+	private TmdbService tmdbClient;
 	
 	@Autowired
-	private YouTubeClient youTubeClient;
+	private YouTubeService youTubeClient;
 	
 	@Autowired
 	OptionalSearchFilter optionalSearchFilters;

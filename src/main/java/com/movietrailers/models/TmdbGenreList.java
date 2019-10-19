@@ -3,7 +3,7 @@ package com.movietrailers.models;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public final class TmdbGenreList{		
+public class TmdbGenreList{		
 	
 	@JsonProperty("genres")
 	private List<Genre> listOfGenres;

@@ -11,8 +11,6 @@
   <properties>
   	<jackson.version>2.10.0.pr3</jackson.version>
   	<spring.version>5.1.9.RELEASE</spring.version>
-  	<mysql.version>8.0.17</mysql.version>
-  	<servlet.version>4.0.1</servlet.version>
   </properties>
   
   <dependencies> 
@@ -32,20 +30,8 @@
 	    <groupId>com.fasterxml.jackson.core</groupId>
 	    <artifactId>jackson-databind</artifactId>
 	    <version>${jackson.version}</version>
-	</dependency>		
-	  
-	<dependency>
-	    <groupId>mysql</groupId>
-	    <artifactId>mysql-connector-java</artifactId>
-	    <version>${mysql.version}</version>
-	</dependency>
+	</dependency>			
 	
-	<dependency>
-	    <groupId>javax.servlet</groupId>
-	    <artifactId>javax.servlet-api</artifactId>
-	    <version>${servlet.version}</version>
-	    <scope>provided</scope>
-	</dependency>
     <dependency>
     
       <groupId>junit</groupId>

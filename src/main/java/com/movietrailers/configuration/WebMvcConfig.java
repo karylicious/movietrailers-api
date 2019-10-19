@@ -11,8 +11,10 @@ import org.springframework.http.MediaType;
 
 import com.movietrailers.models.ErrorMessage;
 import com.movietrailers.models.OptionalSearchFilter;
-import com.movietrailers.stubs.TmdbClient;
-import com.movietrailers.stubs.YouTubeClient;
+import com.movietrailers.services.TmdbService;
+import com.movietrailers.services.YouTubeService;
+
+
 
 @Configuration
 @EnableWebMvc
@@ -32,13 +34,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 	
 	@Bean
-	public YouTubeClient getYouTubeClient() {
-		return new YouTubeClient();
+	public YouTubeService getYouTubeClient() {
+		return new YouTubeService();
 	}
 	
 	@Bean
-	public TmdbClient getTmdbClient() {
-		return new TmdbClient();
+	public TmdbService getTmdbClient() {
+		return new TmdbService();
 	}
 		
 	@Bean
